@@ -11,6 +11,23 @@ import javafx.stage.Stage;
 public class TelaGame extends Application{
 	
 	Socket socket;
+	static Stage primaryStage;
+	public void gameEnd(String como) {
+			try {
+			EndGameController controller;
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("EndGame.fxml"));
+			Parent root = (Parent) loader.load();
+			
+
+			        Scene scene = new Scene(root);
+			        primaryStage.setScene(scene);
+			        primaryStage.show();
+			    controller = loader.getController();
+			    controller.setComo(como);
+			    } catch (Exception ex) {
+			        ex.printStackTrace();
+			    }
+	}
 	
 	public TelaGame(Socket socket) {
 		this.socket = socket;
@@ -22,6 +39,7 @@ public class TelaGame extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		
+		this.primaryStage = primaryStage;
 		try {
 			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaGame.fxml"));
@@ -30,6 +48,7 @@ public class TelaGame extends Application{
 
 			        Scene scene = new Scene(root);
 			        primaryStage.setScene(scene);
+			        primaryStage.setTitle("Game");
 			        primaryStage.show();
 			    	
 			    } catch (Exception ex) {
@@ -40,7 +59,7 @@ public class TelaGame extends Application{
 		Thread thread = new Thread(threadEnvio);
 		thread.start();
 		
-		ThreadRecebimento recebimento = new ThreadRecebimento(socket, controller);
+		ThreadRecebimento recebimento = new ThreadRecebimento(socket, controller, this);
 		
 		Thread thread2 = new Thread(recebimento);
 		thread2.start();

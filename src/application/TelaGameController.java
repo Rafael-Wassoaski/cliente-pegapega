@@ -22,6 +22,29 @@ public class TelaGameController implements Initializable {
 	@FXML
 	Button cima, baixo, esquerda, direita;
 	
+	private void block() {
+		
+		cima.setDisable(true);
+		baixo.setDisable(true);
+		esquerda.setDisable(true);
+		direita.setDisable(true);
+		
+		try {
+			Thread.currentThread().sleep(1000);
+			
+			cima.setDisable(false);
+			baixo.setDisable(false);
+			esquerda.setDisable(false);
+			direita.setDisable(false);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
 	private void setCampo() {
 		String campoUnificado = "";
 		for(int a = 0; a < 8 ;a ++) {
@@ -61,6 +84,7 @@ public class TelaGameController implements Initializable {
 				if (x - 1 >= 0) {
 					x--;
 					setCampo();
+					block();
 				}
 				
 			}
@@ -75,6 +99,7 @@ public class TelaGameController implements Initializable {
 				if (x + 1 < 8) {
 					x++;
 					setCampo();
+					block();
 				}
 
 			}
@@ -89,6 +114,7 @@ public class TelaGameController implements Initializable {
 				if (y - 1 >= 0) {
 					y--;
 					setCampo();
+					block();
 				}
 
 			}
@@ -103,6 +129,7 @@ public class TelaGameController implements Initializable {
 				if (y + 1 < 8) {
 					y++;
 					setCampo();
+					block();
 				}
 
 			}

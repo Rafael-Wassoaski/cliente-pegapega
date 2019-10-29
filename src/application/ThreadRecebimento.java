@@ -7,17 +7,23 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
+import javafx.application.Platform;
+
 public class ThreadRecebimento  implements Runnable{
 	Socket a1;
 	TelaGameController tela;
-	public ThreadRecebimento (Socket socket, TelaGameController game) {
+	TelaGame telaGame;
+	public ThreadRecebimento (Socket socket, TelaGameController game, TelaGame telaGame) {
 		a1 = socket;
 		tela = game;
+		this.telaGame = telaGame;
 	}
 	
 	public void trocaTempo(String tempo) {
 		TelaGameController.tempoFloat = Float.parseFloat(tempo);
 	}
+	
+	
 	
 	public static String getData() {
 		Calendar calendar = new GregorianCalendar();
@@ -35,15 +41,30 @@ public class ThreadRecebimento  implements Runnable{
 			Scanner scanner = new Scanner(a1.getInputStream());
 			
 			while(TelaGameController.game) {
-				String[] stringRPS = {""};
-				if(scanner.hasNextLine()) {
-				stringRPS = scanner.nextLine().toString().split(";");
-				}
 				
-				if(stringRPS[0].equals("tempo")) {
+				if(scanner.hasNextLine()) {
+				final String[] stringRPS = scanner.nextLine().toString().split(";");
+				
+				
+				switch (stringRPS[0]) {
+				case "tempo":
 					TelaGameController.tempoFloat = Float.parseFloat(stringRPS[1]);
 					tela.atualizaTempo();
+					break;
+				case "Encerrou":
+					
+					 Platform.runLater(new Runnable() {
+		                 @Override public void run() {
+		                     telaGame.gameEnd(stringRPS[1]);
+		                 }
+		             });
+					break;
+
+				default:
+					break;
 				}
+				}
+				
 			}
 			
 			
