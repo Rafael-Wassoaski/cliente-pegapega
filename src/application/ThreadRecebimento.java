@@ -59,6 +59,10 @@ public class ThreadRecebimento  implements Runnable{
 		                 }
 		             });
 					break;
+					
+				case "Proximo":
+					tela.setAviso(stringRPS[1], TelaGameController.tempoFloat);
+					break;
 
 				default:
 					break;

@@ -20,7 +20,16 @@ public class TelaGameController implements Initializable {
 	@FXML
 	Text tempo;
 	@FXML
+	Text aviso;
+	@FXML
 	Button cima, baixo, esquerda, direita;
+	
+	public void setAviso(String msg, float tempo) {
+		
+		aviso.setText("No tempo " + tempo +" "+msg);
+		
+		
+	}
 	
 	private void block() {
 		
