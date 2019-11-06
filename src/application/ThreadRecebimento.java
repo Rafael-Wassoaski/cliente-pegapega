@@ -14,18 +14,21 @@ public class ThreadRecebimento  implements Runnable{
 	TelaGameController tela;
 	TelaGame telaGame;
 	public ThreadRecebimento (Socket socket, TelaGameController game, TelaGame telaGame) {
+		//recebe um socket já ligado no server, um controler e uma classe de tela
 		a1 = socket;
 		tela = game;
 		this.telaGame = telaGame;
 	}
 	
 	public void trocaTempo(String tempo) {
+		//função q é chamada quando o tempo deve ser trocado, ela seta o tempo do controler e dps da tela do game
 		TelaGameController.tempoFloat = Float.parseFloat(tempo);
 	}
 	
 	
 	
 	public static String getData() {
+		//não é mais usada 
 		Calendar calendar = new GregorianCalendar();
 		Date trialTime = new Date();
 		calendar.setTime(trialTime);
@@ -41,18 +44,21 @@ public class ThreadRecebimento  implements Runnable{
 			Scanner scanner = new Scanner(a1.getInputStream());
 			
 			while(TelaGameController.game) {
-				
+				//fica rodando esse while enquanto o jogo não acabar
 				if(scanner.hasNextLine()) {
+					//recebe a msg do server e separa os lugares que tiver um ;
 				final String[] stringRPS = scanner.nextLine().toString().split(";");
 				
 				
 				switch (stringRPS[0]) {
+						//se a msg for tempo; ele disparaa função de atualizar tempo
 				case "tempo":
 					TelaGameController.tempoFloat = Float.parseFloat(stringRPS[1]);
+						//chama a função do controller que atualiza o tempo e atualiza na tela o game
 					tela.atualizaTempo();
 					break;
 				case "Encerrou":
-					
+					//se for encerrou ele chama uma nova tela pra cabar o game e passa como ele acabou
 					 Platform.runLater(new Runnable() {
 		                 @Override public void run() {
 		                     telaGame.gameEnd(stringRPS[1]);
@@ -61,6 +67,8 @@ public class ThreadRecebimento  implements Runnable{
 					break;
 					
 				case "Proximo":
+						//se for proximo ele chama a função de aviso, que apresenta um textfield na tela dizendoq
+						//que tem gente perto
 					tela.setAviso(stringRPS[1], TelaGameController.tempoFloat);
 					break;
 
