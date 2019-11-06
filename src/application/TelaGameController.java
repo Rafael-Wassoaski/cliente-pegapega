@@ -75,7 +75,7 @@ public class TelaGameController implements Initializable {
 	}
 	
 	public void atualizaTempo() {
-		//função chamada na thread recebimento quando chegar a msg de novo tempo, ele chama aqui e atualiza ele na interface
+		//função chamada nas threads quando chegar a msg de novo tempo, ele chama nas thread e atualiza o tempo na interface
 		tempo.setText(Float.toString(tempoFloat));
 	}
 
