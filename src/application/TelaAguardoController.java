@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 
 public class TelaAguardoController implements Initializable{
 	
-	
+	//Controlador da tela de aguardo, na prática não faz nd
 	@FXML
 	public Text campo;
 	
