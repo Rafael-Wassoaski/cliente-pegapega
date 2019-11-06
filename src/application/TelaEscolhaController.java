@@ -39,7 +39,7 @@ public class TelaEscolhaController implements Initializable {
 	}
 	
 	public void entrar() {
-		
+		//função que está no botão da tela de escolha de tipo, quando clicado o botão ativa esta função, que abre a tela de aguardo
 		if(comboBoxTipos.getValue() != null) {
 		
 			
