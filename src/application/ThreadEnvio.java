@@ -10,6 +10,7 @@ public class ThreadEnvio implements Runnable {
 	
 	TelaGameController tela;
 	public ThreadEnvio (Socket socket, TelaGameController game) {
+		//recebe um socket já conectado num server e o controlador da tela
 		this.socket = socket;
 		tela = game;
 	}
@@ -22,9 +23,13 @@ public class ThreadEnvio implements Runnable {
 			PrintWriter print = new PrintWriter(socket.getOutputStream(), true);
 			
 			while(TelaGameController.game) {
+				//pega o tempo da tela do game e incrementa 1
 				TelaGameController.tempoFloat++;
+				//dorme 1 segundo
 				Thread.currentThread().sleep(1000);
+				//manda pro server o tempo;x;y
 				print.println(TelaGameController.tempoFloat+";"+TelaGameController.x+";"+TelaGameController.y);
+				//manda atualizar o tempo da tela do game
 				tela.atualizaTempo();
 				
 				
