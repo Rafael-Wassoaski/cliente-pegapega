@@ -26,10 +26,11 @@ public class TelaAguardo extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		try {
+			//carrega o fxml da tela de aguardo
 		
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaAguardo.fxml"));
 			Parent root = (Parent) loader.load();
-			this.controller = (TelaAguardoController) loader.getController(); //Essa � a linha importante, � onde voc� captura o objeto atual que representa seu controller
+			this.controller = (TelaAguardoController) loader.getController(); //Essa é a linha importante, é onde você captura o objeto atual que representa seu controller
 
 			        Scene scene = new Scene(root);
 			        primaryStage.setScene(scene);
@@ -41,15 +42,16 @@ public class TelaAguardo extends Application{
 		
 		
 		
-		
+		//cria um socket
 		Socket a1;
 		try {
+			//dispara o socket para o servidor 
 			a1 = new Socket("localhost",4261);
-		
+		//escritor para mandar dados pro server
 		PrintWriter a = new PrintWriter(a1.getOutputStream(), true);
 		
 		a.println(tipo);
-		
+		//scanner pra ler oq vem do server
 		Scanner a2 = new Scanner(a1.getInputStream());
 		Integer tempo = 0;
 		
@@ -57,7 +59,7 @@ public class TelaAguardo extends Application{
 		
 	
 		while(true) {
-			
+			//fica rodando nesse while até ler "Iniciar;tipo", msg que vem do server
 			f3 = a2.nextLine().toString();
 			
 		System.out.println(f3);
@@ -66,7 +68,7 @@ public class TelaAguardo extends Application{
 			break;
 		}
 		
-		try {
+		try {//se a msg que vem do server não for "Iniciar;tipo" ele dorme por 1 seg
 			Thread.currentThread().sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -76,7 +78,7 @@ public class TelaAguardo extends Application{
 		
 		
 		//acabou a espera, jogo comeca
-		
+		//quando começa o jogo ele abre a tela do game aqui
 		TelaGame game = new TelaGame(a1);
 		game.start(primaryStage);
 		
