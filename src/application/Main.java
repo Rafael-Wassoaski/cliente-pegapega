@@ -15,6 +15,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			//lança o game e a tela inicial de escolha do tipo do jogador, não faz verificação se está disponível ou não o tipo
 			Parent root = FXMLLoader.load(getClass().getResource("TelaEsolhaTipo.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setTitle("Escolha seu tipo");
